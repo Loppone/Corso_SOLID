@@ -48,7 +48,7 @@ public class Car
 
 class Program
 {
-    static void Main(string[] args)
+    static void Main_0(string[] args)
     {
         Console.Clear();
 
