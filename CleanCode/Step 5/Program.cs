@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CleanCode_4
+namespace CleanCode_5
 {
     public class Customer
     {
@@ -40,11 +40,16 @@ namespace CleanCode_4
         }
     }
 
-    public class CarSeller
+    public interface ICarSeller
+    {
+        public decimal CustomerPrice { get; set; }
+        public void Sell(Car car);
+    }
+
+    public class CarSeller : ICarSeller
     {
         // LIVELLO 2
         private PriceNegotiation _priceNegotiator;
-        public Car Car { get; set; }
         public decimal CustomerPrice { get; set; }
 
         public CarSeller(PriceNegotiation priceNegotiator)
@@ -52,9 +57,9 @@ namespace CleanCode_4
             _priceNegotiator = priceNegotiator;
         }
 
-        public void Sell()
+        public void Sell(Car car)
         {
-            CustomerPrice = _priceNegotiator.NegotiatePrice(Car.ListPrice);
+            CustomerPrice = _priceNegotiator.NegotiatePrice(car.ListPrice);
         }
     }
 
@@ -70,6 +75,7 @@ namespace CleanCode_4
             return listPrice - (listPrice * 30 / 100);
         }
     }
+
     public class StandardCustomerPriceNegotiator : PriceNegotiation
     {
         public override decimal NegotiatePrice(decimal listPrice)
@@ -95,9 +101,54 @@ namespace CleanCode_4
         }
     }
 
+    public class ShopCar
+    {
+        private readonly Car _car;
+        private readonly Customer _customer;
+        public ICarSeller CarSeller { get; set; }
+        public IEmailSender EmailSender { get; set; }
+
+        public ShopCar(Car car, Customer customer)
+        {
+            _car = car;
+            _customer = customer;
+        }
+
+        public void SellOnlineCar()
+        {
+            // DIP
+            #region Violazione
+            //var CarSeller = new CarSeller(PriceNegotiationFactory.Create(cust.IsGold.ToString()));
+            //CarSeller.Car = car;
+            //CarSeller.Sell();
+
+            //IEmailSender emailSender = new EmailSender();
+            //emailSender.Send(cust.Email);
+
+            //Console.WriteLine($"Auto venduta a {CarSeller.CustomerPrice} Euro.");
+            #endregion
+
+            #region Ok
+            if (CarSeller == null)
+            {
+                Console.WriteLine("Si è verificato un problema irreversibile");
+                //throw new Exception("NON E' BUONA PRATICA PASSARE LE DIPENDENZE TRAMITE PROPRIETA' QUANDO QUESTE SONO OBBLIGATORIE");
+            }
+            else
+            {
+                CarSeller.Sell(_car);
+                Console.WriteLine($"Auto venduta a {CarSeller.CustomerPrice} Euro.");
+
+                if (EmailSender != null)
+                    EmailSender.Send(_customer.Email);
+            }
+            #endregion
+        }
+    }
+
     class Program_4
     {
-        static void Main_4(string[] args)
+        static void Main(string[] args)
         {
             // LIVELLO 1
             Console.Clear();
@@ -111,16 +162,15 @@ namespace CleanCode_4
             cust.Email = "pippo@gmail.com";
             cust.IsGold = true;
 
-            var CarSeller = new CarSeller(PriceNegotiationFactory.Create(cust.IsGold.ToString()));
-            CarSeller.Car = car;
-            CarSeller.Sell();
-
-            IEmailSender emailSender = new EmailSender();
-            emailSender.Send(cust.Email);
-
-            Console.WriteLine($"Auto venduta a {CarSeller.CustomerPrice} Euro.");
+            var shopOnline = new ShopCar(car, cust);
+            #region Sopresa
+            //shopOnline.CarSeller = new CarSeller(PriceNegotiationFactory.Create(cust.IsGold.ToString()));
+            //shopOnline.EmailSender = new EmailSender();
+            #endregion
+            shopOnline.SellOnlineCar();
 
             Console.ReadKey();
         }
     }
+
 }
