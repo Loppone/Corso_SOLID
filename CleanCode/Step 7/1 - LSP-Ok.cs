@@ -7,48 +7,74 @@ namespace CleanCode.Step_7B
         public abstract void GetModel();
     }
 
-    public class Tesla : Car
+    public class Electric : Car
     {
         public override void GetModel()
         {
-            Console.WriteLine($"Modello Tesla");
+            Console.WriteLine($"Auto elettrica");
+        }
+
+        public virtual void BatteryCapacity()
+        {
+            Console.WriteLine($"Standard 10 Ah");
         }
     }
 
-    public class MercedesCar : Car
+    public class Petrol : Car
     {
         public override void GetModel()
         {
-            Console.WriteLine($"Modello Mercedes");
+            Console.WriteLine($"Auto a benzina/diesel");
+        }
+
+        public virtual void GasTankCapacity()
+        {
+            Console.WriteLine($"Standard 50 litri");
         }
     }
 
-    public class SubaruCar : Car
+    public class Tesla : Electric
     {
         public override void GetModel()
         {
-            Console.WriteLine($"Modello Subaru");
+            Console.WriteLine($"Tesla");
+        }
+
+        public override void BatteryCapacity()
+        {
+            Console.WriteLine($"26 Ah");
         }
     }
 
+
+    public class Mercedes : Petrol
+    {
+        public override void GetModel()
+        {
+            Console.WriteLine($"Mercedes");
+        }
+
+        public override void GasTankCapacity()
+        {
+            Console.WriteLine($"65 litri");
+        }
+    }
 
     class Program
     {
         static void Main(string[] args)
         {
-            // LPS + OCP + DIP conforme
             Console.Clear();
 
-            Car whatCarWillbe1 = new Tesla();
-            whatCarWillbe1.GetModel();
+            Car tesla = new Tesla();
+            tesla.GetModel();
 
-            Car whatCarWillbe2 = new MercedesCar();
-            whatCarWillbe2.GetModel();
-
-            Car whatCarWillbe3 = new SubaruCar();
-            whatCarWillbe3.GetModel();
+            Car mercedes = new Mercedes();
+            mercedes.GetModel();
 
             Console.ReadKey();
+
+            // TUTTO A POSTO, MA USANDO QUESTA ASTRAZIONE NON ABBIAMO ACCESSO AI SERBATOI
         }
     }
 }

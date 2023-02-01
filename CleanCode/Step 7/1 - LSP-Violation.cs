@@ -2,27 +2,42 @@
 
 namespace CleanCode.Step_7A
 {
-    public class TeslaCar
+    public class Car
     {
         public virtual void GetModel()
         {
-            Console.WriteLine($"Modello Tesla");
+            Console.WriteLine($"Auto generica");
+        }
+
+        public virtual void TankCapacity()
+        {
+            Console.WriteLine($"50 litri");
         }
     }
 
-    public class MercedesCar : TeslaCar
+    public class Mercedes : Car
     {
         public override void GetModel()
         {
-            Console.WriteLine($"Modello Mercedes");
+            Console.WriteLine($"Mercedes");
+        }
+
+        public override void TankCapacity()
+        {
+            Console.WriteLine($"60 litri");
         }
     }
 
-    public class SubaruCar : TeslaCar
+    public class Tesla : Car
     {
         public override void GetModel()
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"Tesla");
+        }
+
+        public override void TankCapacity()
+        {
+            throw new NotImplementedException("NON HO IL SERBATOIO DELLA BENZINA :(");
         }
     }
 
@@ -33,14 +48,11 @@ namespace CleanCode.Step_7A
         {
             Console.Clear();
 
-            TeslaCar tesla = new TeslaCar();
-            tesla.GetModel();
+            Car tesla = new Tesla();
+            tesla.TankCapacity();
 
-            //TeslaCar tesla2 = new MercedesCar();
-            //tesla2.GetModel();
-
-            //TeslaCar tesla3 = new SubaruCar();
-            //tesla3.GetModel();
+            Car mercedes = new Mercedes();
+            mercedes.TankCapacity();
 
             Console.ReadKey();
         }
