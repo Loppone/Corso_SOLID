@@ -78,7 +78,7 @@ namespace CleanCode_3
 
     class Program_3
     {
-        static void Main_3(string[] args)
+        static void Main_(string[] args)
         {
             Console.Clear();
 

@@ -97,7 +97,7 @@ namespace CleanCode_4
 
     class Program_4
     {
-        static void Main_4(string[] args)
+        static void Main_(string[] args)
         {
             // LIVELLO 1
             Console.Clear();

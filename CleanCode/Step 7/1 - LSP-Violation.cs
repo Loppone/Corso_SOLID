@@ -44,7 +44,7 @@ namespace CleanCode.Step_7A
 
     class Program
     {
-        static void Main_7A(string[] args)
+        static void Main_(string[] args)
         {
             Console.Clear();
 

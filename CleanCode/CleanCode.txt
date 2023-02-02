@@ -1,0 +1,35 @@
+﻿Linee guida
+-----------
+
+1.  Leggibilità: il codice dovrebbe essere facile da comprendere e mantenere.
+2.  Nomenclatura: utilizzare nomi descrittivi e significativi per le variabili, le funzioni e i file.
+3.  Dimensione delle funzioni: le funzioni dovrebbero essere piccole e fare solo una cosa.
+4.  Commenti: evitare di commentare il codice (*) e invece rendere il codice stesso leggibile e autoesplicativo.
+5.  Error handling: gestire gli errori in modo efficiente e trasparente per l'utente.
+6.  Refactoring: continuare a migliorare e ottimizzare il codice per renderlo più pulito.
+7.  Consistenza: seguire uno stile di codifica uniforme all'interno del progetto.
+8.  Semplicità: scrivere del codice il più semplice possibile (KISS)
+9.  Evitare ripetizioni: DRY --> WET
+10. Togliere (non aggiungere) ciò che non serve: creare l'architettura per step invece dal progetto completo (YAGNI)
+
+(*) I commenti possono essere un’arma a doppio taglio, nello specifico, commenti ridondanti, ovvi e troppo dettagliati, 
+    possono rendere il codice pesante da leggere. Inoltre, un commento non dovrebbe mai spiegare cosa fa una funzione perché, 
+    in quel caso, abbiamo scritto una funzione in modo non esplicativo e non abbiamo quindi rispettato uno dei principi del clean code.
+    Non scrivete commenti solo per migliorare il codice presente. E' molto meglio avere un codice pulito, chiaro e con pochi commenti, 
+    piuttosto che un codice intricato e super commentato.
+
+    es:
+        Prima del refactoring:
+
+        // Se l'auto ha il cambio automatico...
+        if (car.NumeroMarce == null)
+        {
+            // ...
+        }
+
+        Refactoring:
+
+        if (car.IsAutomatic)
+        {
+            // ...
+        }

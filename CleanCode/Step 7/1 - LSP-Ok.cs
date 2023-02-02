@@ -62,7 +62,7 @@ namespace CleanCode.Step_7B
 
     class Program
     {
-        static void Main(string[] args)
+        static void Main_(string[] args)
         {
             Console.Clear();
 
